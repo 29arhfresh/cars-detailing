@@ -9,22 +9,10 @@ interface Message {
 }
 
 interface BookingData {
-  name?: string;
-  phone?: string;
-  car?: string;
-  service?: string;
-}
-
-function parseBooking(text: string): BookingData | null {
-  try {
-    const match = text.match(/\{"booking":\s*(\{[^}]+\})\}/);
-    if (match) {
-      return JSON.parse(match[1]);
-    }
-  } catch {
-    // ignore parse errors
-  }
-  return null;
+  name: string;
+  phone: string;
+  car: string;
+  service: string;
 }
 
 export default function AIChat() {
@@ -69,36 +57,26 @@ export default function AIChat() {
       });
 
       const data = await response.json();
-      const replyText = data.reply || "Извините, произошла ошибка.";
+      const replyText: string = data.reply || "Извините, произошла ошибка.";
 
-      const bookingData = parseBooking(replyText);
-      if (bookingData) {
-        const bookings = JSON.parse(
+      // Save booking to localStorage if the server extracted one
+      if (data.booking) {
+        const booking = data.booking as BookingData;
+        const bookings: object[] = JSON.parse(
           localStorage.getItem("cars_detailing_bookings") || "[]"
         );
         bookings.push({
-          ...bookingData,
+          ...booking,
           id: Date.now(),
           source: "chat",
           createdAt: new Date().toISOString(),
           status: "pending",
         });
         localStorage.setItem("cars_detailing_bookings", JSON.stringify(bookings));
-
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content:
-              "Отлично! Ваша заявка принята. Мы свяжемся с вами в ближайшее время для подтверждения. Спасибо, что выбрали Cars Detailing!",
-          },
-        ]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: replyText },
-        ]);
       }
+
+      // Always show the reply as-is — server already formats the confirmation
+      setMessages((prev) => [...prev, { role: "assistant", content: replyText }]);
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -128,8 +106,8 @@ export default function AIChat() {
         className="gold-gradient"
         style={{
           position: "fixed",
-          bottom: "1.5rem",
-          right: "1.5rem",
+          bottom: "1rem",
+          right: "1rem",
           width: 56,
           height: 56,
           borderRadius: "50%",
@@ -162,10 +140,9 @@ export default function AIChat() {
       <div
         style={{
           position: "fixed",
-          bottom: "1.5rem",
-          right: "1.5rem",
-          width: "100%",
-          maxWidth: "24rem",
+          bottom: "1rem",
+          right: "1rem",
+          width: "min(24rem, calc(100vw - 2rem))",
           zIndex: 50,
           transition: "all 0.3s ease",
           transform: isOpen ? "translateY(0) scale(1)" : "translateY(1rem) scale(0.95)",
@@ -182,7 +159,7 @@ export default function AIChat() {
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
-            height: "32.5rem",
+            height: "min(32.5rem, calc(100vh - 4rem))",
           }}
         >
           {/* Header */}
