@@ -5,6 +5,7 @@ import BeforeAfterSection from "@/components/BeforeAfterSection";
 import GallerySection from "@/components/GallerySection";
 import WhyUsSection from "@/components/WhyUsSection";
 import ReviewsSection from "@/components/ReviewsSection";
+import CTASection from "@/components/CTASection";
 import ContactSection from "@/components/ContactSection";
 import AIChat from "@/components/AIChat";
 import Footer from "@/components/Footer";
@@ -19,6 +20,7 @@ export default function Home() {
       <GallerySection />
       <WhyUsSection />
       <ReviewsSection />
+      <CTASection />
       <ContactSection />
       <Footer />
       <AIChat />

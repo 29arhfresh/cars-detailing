@@ -1,6 +1,6 @@
 "use client";
 
-import { Phone, MapPin, Clock, Globe } from "lucide-react";
+import { Phone, MapPin, Clock, Globe, MessageCircle } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -190,26 +190,38 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            <a
-              href="https://www.instagram.com/carsdetailing.pro"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-                color: "rgba(255,255,255,0.5)",
-                textDecoration: "none",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#C9A24B")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
-            >
-              <Globe size={20} />
-              <span style={{ fontFamily: "Inter, sans-serif", fontSize: "0.875rem" }}>
-                @carsdetailing.pro
-              </span>
-            </a>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+              <a
+                href="https://wa.me/79221011020"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex", alignItems: "center", gap: "0.5rem",
+                  color: "#25d366", textDecoration: "none", transition: "opacity 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+              >
+                <MessageCircle size={15} style={{ flexShrink: 0 }} />
+                <span style={{ fontFamily: "Inter, sans-serif", fontSize: "0.875rem" }}>WhatsApp</span>
+              </a>
+              <a
+                href="https://www.instagram.com/carsdetailing.pro"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "flex", alignItems: "center", gap: "0.5rem",
+                  color: "rgba(255,255,255,0.5)", textDecoration: "none", transition: "color 0.2s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#C9A24B")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)")}
+              >
+                <Globe size={15} style={{ flexShrink: 0 }} />
+                <span style={{ fontFamily: "Inter, sans-serif", fontSize: "0.875rem" }}>
+                  @carsdetailing.pro
+                </span>
+              </a>
+            </div>
           </div>
         </div>
 
