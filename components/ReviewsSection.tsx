@@ -188,15 +188,16 @@ export default function ReviewsSection() {
 
           {/* 2GIS aggregate rating */}
           <div
-            className="inline-flex items-center gap-4 rounded-2xl px-6 py-3 mx-auto"
+            className="inline-flex flex-wrap items-center justify-center gap-3 rounded-2xl px-4 py-3"
             style={{
               backgroundColor: "rgba(255,255,255,0.03)",
               border: "1px solid rgba(255,255,255,0.1)",
               marginTop: "1.25rem",
+              maxWidth: "100%",
             }}
           >
-            <div style={{ textAlign: "left" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} style={{ color: "#C9A24B", fill: "#C9A24B" }} />
                 ))}
@@ -208,8 +209,8 @@ export default function ReviewsSection() {
                 47 отзывов · 2ГИС
               </div>
             </div>
-            <div style={{ width: 1, height: 36, backgroundColor: "rgba(255,255,255,0.1)" }} />
-            <div style={{ textAlign: "left" }}>
+            <div className="hidden sm:block" style={{ width: 1, height: 36, backgroundColor: "rgba(255,255,255,0.1)" }} />
+            <div style={{ textAlign: "center" }}>
               <div style={{ color: "rgba(255,255,255,0.7)", fontFamily: "Inter, sans-serif", fontSize: "0.8125rem", lineHeight: 1.5 }}>
                 Лучший детейлинг-центр<br />
                 <span style={{ color: "#C9A24B", fontWeight: 600 }}>по отзывам в Екатеринбурге</span>

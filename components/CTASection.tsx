@@ -30,7 +30,7 @@ export default function CTASection() {
             margin: "0 auto",
             border: "1px solid rgba(201,162,75,0.25)",
             borderRadius: "1.5rem",
-            padding: "3rem 2rem",
+            padding: "clamp(2rem, 6vw, 3rem) clamp(1.25rem, 5vw, 2rem)",
             backgroundColor: "rgba(201,162,75,0.04)",
             textAlign: "center",
           }}

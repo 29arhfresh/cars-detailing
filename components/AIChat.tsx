@@ -106,8 +106,8 @@ export default function AIChat() {
         className="gold-gradient"
         style={{
           position: "fixed",
-          bottom: "1.5rem",
-          right: "1.5rem",
+          bottom: "1rem",
+          right: "1rem",
           width: 56,
           height: 56,
           borderRadius: "50%",
@@ -140,10 +140,9 @@ export default function AIChat() {
       <div
         style={{
           position: "fixed",
-          bottom: "1.5rem",
-          right: "1.5rem",
-          width: "100%",
-          maxWidth: "24rem",
+          bottom: "1rem",
+          right: "1rem",
+          width: "min(24rem, calc(100vw - 2rem))",
           zIndex: 50,
           transition: "all 0.3s ease",
           transform: isOpen ? "translateY(0) scale(1)" : "translateY(1rem) scale(0.95)",
@@ -160,7 +159,7 @@ export default function AIChat() {
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
-            height: "32.5rem",
+            height: "min(32.5rem, calc(100vh - 4rem))",
           }}
         >
           {/* Header */}
