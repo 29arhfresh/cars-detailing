@@ -9,22 +9,10 @@ interface Message {
 }
 
 interface BookingData {
-  name?: string;
-  phone?: string;
-  car?: string;
-  service?: string;
-}
-
-function parseBooking(text: string): BookingData | null {
-  try {
-    const match = text.match(/\{"booking":\s*(\{[^}]+\})\}/);
-    if (match) {
-      return JSON.parse(match[1]);
-    }
-  } catch {
-    // ignore parse errors
-  }
-  return null;
+  name: string;
+  phone: string;
+  car: string;
+  service: string;
 }
 
 export default function AIChat() {
@@ -69,36 +57,26 @@ export default function AIChat() {
       });
 
       const data = await response.json();
-      const replyText = data.reply || "Извините, произошла ошибка.";
+      const replyText: string = data.reply || "Извините, произошла ошибка.";
 
-      const bookingData = parseBooking(replyText);
-      if (bookingData) {
-        const bookings = JSON.parse(
+      // Save booking to localStorage if the server extracted one
+      if (data.booking) {
+        const booking = data.booking as BookingData;
+        const bookings: object[] = JSON.parse(
           localStorage.getItem("cars_detailing_bookings") || "[]"
         );
         bookings.push({
-          ...bookingData,
+          ...booking,
           id: Date.now(),
           source: "chat",
           createdAt: new Date().toISOString(),
           status: "pending",
         });
         localStorage.setItem("cars_detailing_bookings", JSON.stringify(bookings));
-
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content:
-              "Отлично! Ваша заявка принята. Мы свяжемся с вами в ближайшее время для подтверждения. Спасибо, что выбрали Cars Detailing!",
-          },
-        ]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: replyText },
-        ]);
       }
+
+      // Always show the reply as-is — server already formats the confirmation
+      setMessages((prev) => [...prev, { role: "assistant", content: replyText }]);
     } catch {
       setMessages((prev) => [
         ...prev,
