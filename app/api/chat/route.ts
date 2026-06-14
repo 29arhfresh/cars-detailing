@@ -283,11 +283,15 @@ export async function POST(request: NextRequest) {
     const { default: Anthropic } = await import("@anthropic-ai/sdk");
     const client = new Anthropic({ apiKey });
 
+    // Anthropic requires the conversation to start with role: "user"
+    const firstUserIdx = messages.findIndex((m: Message) => m.role === "user");
+    const apiMessages = firstUserIdx > 0 ? messages.slice(firstUserIdx) : messages;
+
     const response = await client.messages.create({
       model: "claude-sonnet-4-6",
       max_tokens: 600,
       system: SYSTEM_PROMPT,
-      messages: messages.map((m) => ({ role: m.role, content: m.content })),
+      messages: apiMessages.map((m) => ({ role: m.role, content: m.content })),
     });
 
     const content = response.content[0];
